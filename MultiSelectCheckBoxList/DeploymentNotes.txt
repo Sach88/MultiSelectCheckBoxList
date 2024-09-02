@@ -7,7 +7,7 @@
  
 3. (Confirm you are under sub-folder now) and run below command 'using your publisher name***
 
-- ..\MultiSelectCheckBoxListSolution>pac solution init --publisher-name Regulus --publisher-prefix wmuk
+- ..\MultiSelectCheckBoxListSolution>pac pac solution init --publisher-name WMUK  --publisher-prefix wmuk
  
 4. Under the same folder ***
 - ..\MultiSelectCheckBoxListSolution>pac solution add-reference --path "C:\Users\sachin.maroti.datey\Documents\Data\PCF POC\StandardControls\MultiSelectCheckBoxList"
