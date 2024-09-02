@@ -10,13 +10,15 @@
 - ..\MultiSelectCheckBoxListSolution>pac solution init --publisher-name Regulus --publisher-prefix wmuk
  
 4. Under the same folder ***
-- ..\MultiSelectCheckBoxListSolution>pac solution add-reference --path "Full Path... \MultiSelectCheckBoxList"
+- ..\MultiSelectCheckBoxListSolution>pac solution add-reference --path "C:\Users\sachin.maroti.datey\Documents\Data\PCF POC\StandardControls\MultiSelectCheckBoxList"
 
 - The --path will be exact pcf project path in order to add ref. [please confirm your project's path before running this, even though we are in same terminal path, the PCF Project path should be enclosed ".."]
  
 5. Under the same folder ***
 - ..\MultiSelectCheckBoxListSolution> msbuild /t:restore
 
-6. Go to ..\MultiSelectCheckBoxListSolution folder and get the solution zip
+6. msbuild
+
+7. Go to ..\MultiSelectCheckBoxListSolution .. bin/ folder and get the solution zip
 
 7. For subsequent builds delete the content of ..\MultiSelectCheckBoxListSolution folder and repeat the steps.
