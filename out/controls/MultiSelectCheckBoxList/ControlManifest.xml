@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<manifest>
+  <control namespace="MultiSelectCheckBoxList" constructor="MultiSelectCheckBoxList" version="0.0.1" display-name-key="MultiSelectCheckBoxList" description-key="MultiSelectCheckBoxList description" control-type="standard" api-version="1.3.15">
+    <external-service-usage enabled="false"/>
+    <property name="multiSelectedValues" display-name-key="Multi Select Lookup Values" description-key="Selected values in comma seperated" of-type="SingleLine.Text" usage="bound"/>
+    <property name="primaryEntityName" display-name-key="Primary Entity Logical Name" description-key="Primary entity Name" usage="input" of-type="SingleLine.Text" required="true"/>
+    <property name="primaryEntityId" display-name-key="Primary Entity ID" description-key="Bind the property to ID of primary entity" usage="input" of-type="SingleLine.Text" required="true"/>
+    <property name="primaryEntityIdColumn" display-name-key="Primary Entity Id Column" description-key="Primary Entity Id Column" usage="input" of-type="SingleLine.Text" required="true"/>
+    <property name="primaryEntityNameColumn" display-name-key="Primary Name Column" description-key="Name column should be primaycolumn(name)" usage="input" of-type="SingleLine.Text" required="true"/>
+    <property name="fieldPlaceHolder" display-name-key="Field Place Holder" description-key="Field Place Holder" usage="input" of-type="SingleLine.Text" required="true"/>
+    <resources>
+      <code path="bundle.js" order="1"/>
+      <css path="css/fontawesome.css" order="1"/>
+      <css path="css/MultiSelectCheckBoxList.css" order="1"/>
+    </resources>
+    <feature-usage>
+      <uses-feature name="Utility" required="true"/>
+      <uses-feature name="WebAPI" required="true"/>
+    </feature-usage>
+    <built-by name="pac" version="1.34.3"/>
+  </control>
+</manifest>

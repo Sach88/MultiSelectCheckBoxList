@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "QsIRB/obYGXPvQuDuLTsCtUAk+oGtvECQSDww1W6WIT7fn+lLR0+58T7D6pYIP2Z1N7SI9epKh891t6twrBb8Q==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\sachin.maroti.datey\\Documents\\Data\\PCF POC\\StandardControls\\MultiSelectCheckBoxList\\MultiSelectCheckBoxList.pcfproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\sachin.maroti.datey\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.0\\microsoft.netframework.referenceassemblies.1.0.0.nupkg.sha512",
+    "C:\\Users\\sachin.maroti.datey\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net462\\1.0.0\\microsoft.netframework.referenceassemblies.net462.1.0.0.nupkg.sha512",
+    "C:\\Users\\sachin.maroti.datey\\.nuget\\packages\\microsoft.powerapps.msbuild.pcf\\1.34.3\\microsoft.powerapps.msbuild.pcf.1.34.3.nupkg.sha512"
+  ],
+  "logs": []
+}

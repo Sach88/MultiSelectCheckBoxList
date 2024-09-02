@@ -1,0 +1,66 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\sachin.maroti.datey\\Documents\\Data\\PCF POC\\StandardControls\\MultiSelectCheckBoxList\\MultiSelectCheckBoxList.pcfproj": {}
+  },
+  "projects": {
+    "C:\\Users\\sachin.maroti.datey\\Documents\\Data\\PCF POC\\StandardControls\\MultiSelectCheckBoxList\\MultiSelectCheckBoxList.pcfproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\sachin.maroti.datey\\Documents\\Data\\PCF POC\\StandardControls\\MultiSelectCheckBoxList\\MultiSelectCheckBoxList.pcfproj",
+        "projectName": "MultiSelectCheckBoxList",
+        "projectPath": "C:\\Users\\sachin.maroti.datey\\Documents\\Data\\PCF POC\\StandardControls\\MultiSelectCheckBoxList\\MultiSelectCheckBoxList.pcfproj",
+        "packagesPath": "C:\\Users\\sachin.maroti.datey\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sachin.maroti.datey\\Documents\\Data\\PCF POC\\StandardControls\\MultiSelectCheckBoxList\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\sachin.maroti.datey\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net462"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net462": {
+            "targetAlias": "net462",
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net462": {
+          "targetAlias": "net462",
+          "dependencies": {
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
+            "Microsoft.PowerApps.MSBuild.Pcf": {
+              "target": "Package",
+              "version": "[1.*, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-arm64": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    }
+  }
+}
