@@ -10,29 +10,10 @@ export class MultiSelectCheckBoxList
 {
   private _notifyOutputChanged: () => void;
   //
-  private selectedOptions: OptionsType;
-  private initialValues: OptionsType;
+  private selectedOptions: OptionsType; //Used inside notifyOutput Change
 
   private _container: HTMLDivElement;
   private _context: ComponentFramework.Context<IInputs>;
-  private _refreshData: EventListenerOrEventListenerObject;
-  //
-  private _col_md_4_div: HTMLDivElement;
-  private _wrapper_div: HTMLDivElement;
-  private _button: HTMLButtonElement;
-  private _checkboxes_div: HTMLDivElement;
-  private _inner_wrapper_div: HTMLDivElement;
-
-  private labelElement: HTMLLabelElement;
-  private inputElement: HTMLInputElement;
-  private spanElement: HTMLSpanElement;
-
-  private _fieldset = HTMLFieldSetElement;
-  private _br = HTMLBRElement;
-  private _lbl = HTMLLIElement;
-  private _details = HTMLDetailsElement;
-  private _ul = HTMLUListElement;
-  private _li = HTMLLIElement;
 
   notifyChange(value: OptionsType) {
     this.selectedOptions = value;
@@ -58,92 +39,63 @@ export class MultiSelectCheckBoxList
     state: ComponentFramework.Dictionary,
     container: HTMLDivElement
   ): void {
+    this._notifyOutputChanged = notifyOutputChanged;
     // Add control initialization code
     this._context = context;
     this._container = document.createElement("div");
-    this._notifyOutputChanged = notifyOutputChanged;
 
-    let preValue: OptionsType = null;
-    preValue = this.Retrieve(
+    //Get Previously stored JSON (i.e. Options)
+    let _previousOptions: OptionsType = [];
+    let _previousOptionsRaw: string = "";
+    _previousOptionsRaw = context.parameters.multiSelectJsonValues.raw!; //Bound == Two Way
+    if (
+      _previousOptionsRaw != null &&
+      _previousOptionsRaw != "" &&
+      _previousOptionsRaw != undefined
+    ) {
+      _previousOptions = JSON.parse(_previousOptionsRaw) as OptionsType;
+    }
+    //Fetch available options.
+    let availableOptions: OptionsType = null;
+    availableOptions = this.Retrieve(
       context,
-      context.parameters.primaryEntityName.raw!,
-      context.parameters.primaryEntityId.raw!,
-      context.parameters.primaryEntityIdColumn.raw!,
-      context.parameters.primaryEntityNameColumn.raw!
+      context.parameters.relatedEntityName.raw!,
+      context.parameters.relatedEntityIdColumn.raw!,
+      context.parameters.relatedEntityNameColumn.raw!,
+      context.parameters.relatedEntitySearchColumn1.raw!,
+      _previousOptions
     );
-    let _innerHtml: string = "";
 
+    let _innerHtml: string = "";
     _innerHtml = '<ul class="list-items"> ';
-    if (preValue != null) {
-      for (let j = 0; j < preValue.length; j++) {
-        if (
-          preValue[j].label != null &&
-          preValue[j].value != null &&
-          preValue[j].parentEntityId != null
-        ) {
-          _innerHtml =
-            _innerHtml +
-            '<li class="item" data-value="' +
-            preValue[j].value +
-            '" data-label="' +
-            preValue[j].label +
-            '" data-parentEntityId="' +
-            preValue[j].parentEntityId +
-            '">' +
-            '<span class="checkbox"> <i class="fa-solid fa-check check-icon"></i> </span> ' +
-            '<span class="item-text">' +
-            preValue[j].label +
-            "</span></li>";
-        }
-      }
+
+    if (_previousOptions != null) {
+      _innerHtml = _innerHtml + this.getPreInnerHtml(_previousOptions);
+    }
+    if (availableOptions != null) {
+      _innerHtml = _innerHtml + this.getAvailInnerHtml(availableOptions);
     }
     _innerHtml = _innerHtml + "</ul>";
+
     /* '<ul class="list-items"> '
            <li class="item checked" data-value="123" data-label="123" data-parentEntityId="1234">  
           <span class="checkbox"> <i class="fa-solid fa-check check-icon"></i> </span> 
           <span class="item-text">French</span></li>  
         </ul>';
     */
-    //Generate HTML
 
+    //Generate HTML
     this._container.innerHTML =
       '<div class="select-btn"> <span class="btn-text">' +
-      (context.parameters.fieldPlaceHolder.raw! == ""
+      (context.parameters.OptionsPlaceHolder.raw! == ""
         ? "Select Options"
-        : context.parameters.fieldPlaceHolder.raw!) +
+        : context.parameters.OptionsPlaceHolder.raw!) +
       '</span> <span class="arrow-dwn"><i class="fa-solid fa-chevron-down"></i>  </span>   </div>' +
       _innerHtml;
-
-    //this._refreshData = this.refreshData.bind(this);
-    /*
-    this._col_md_4_div = document.createElement("div");
-    this._col_md_4_div.setAttribute("class", "col-md-4");
-
-    this._wrapper_div = document.createElement("div");
-    this._wrapper_div.setAttribute("class", "wrapper");
-
-    this._button = document.createElement("button");
-    this._button.setAttribute("class", "form-control toggle-next ellipsis");
-    this._button.innerText = "Connection Roles";
-
-    this._checkboxes_div = document.createElement("div");
-    this._checkboxes_div.setAttribute("id", "roles");
-    this._checkboxes_div.setAttribute("class", "checkboxes");
-    this._checkboxes_div.setAttribute("style", "display: block;");
-
-    this._inner_wrapper_div = document.createElement("div");
-    this._inner_wrapper_div.setAttribute("class", "inner-wrap");
-  */
-    // appending the HTML elements to the control's HTML container element.
-    /*this._container.appendChild(this._col_md_4_div);    
-    this._col_md_4_div.appendChild(this._wrapper_div);
-    this._wrapper_div.appendChild(this._button);
-    this._wrapper_div.appendChild(this._checkboxes_div);
-    this._checkboxes_div.appendChild(this._inner_wrapper_div);
-    //
-    */
+    //append to parent container
     container.appendChild(this._container);
 
+    /* IMP CODE */
     //JS Code
     const selectBtn = document.querySelector(".select-btn"),
       items = document.querySelectorAll(".item");
@@ -183,7 +135,6 @@ export class MultiSelectCheckBoxList
                 console.log(
                   childNodesArr[i].getAttribute("data-parentEntityId")
                 );
-
                 optionArray.push({
                   label: childNodesArr[i].getAttribute("data-label"),
                   value: childNodesArr[i].getAttribute("data-value"),
@@ -225,7 +176,10 @@ export class MultiSelectCheckBoxList
    * @returns an object based on nomenclature defined in manifest, expecting object[s] for property marked as "bound" or "output"
    */
   public getOutputs(): IOutputs {
-    return {};
+    return {
+      //This methods gets called on notifyOutputChange
+      multiSelectJsonValues: JSON.stringify(this.selectedOptions),
+    };
   }
 
   /**
@@ -237,12 +191,68 @@ export class MultiSelectCheckBoxList
   }
 
   //Custom Methods
+  private getPreInnerHtml(preValue: OptionsType): string {
+    let _innerHtml: string = "";
+    if (preValue != null) {
+      for (let j = 0; j < preValue.length; j++) {
+        if (
+          preValue[j].label != null &&
+          preValue[j].value != null &&
+          preValue[j].parentEntityId != null
+        ) {
+          _innerHtml =
+            _innerHtml +
+            '<li class="item checked" data-value="' +
+            preValue[j].value +
+            '" data-label="' +
+            preValue[j].label +
+            '" data-parentEntityId="' +
+            preValue[j].parentEntityId +
+            '">' +
+            '<span class="checkbox"> <i class="fa-solid fa-check check-icon"></i> </span> ' +
+            '<span class="item-text">' +
+            preValue[j].label +
+            "</span></li>";
+        }
+      }
+    }
+    return _innerHtml;
+  }
+  private getAvailInnerHtml(preValue: OptionsType): string {
+    let _innerHtml: string = "";
+    if (preValue != null) {
+      for (let j = 0; j < preValue.length; j++) {
+        if (
+          preValue[j].label != null &&
+          preValue[j].value != null &&
+          preValue[j].parentEntityId != null
+        ) {
+          _innerHtml =
+            _innerHtml +
+            '<li class="item" data-value="' +
+            preValue[j].value +
+            '" data-label="' +
+            preValue[j].label +
+            '" data-parentEntityId="' +
+            preValue[j].parentEntityId +
+            '">' +
+            '<span class="checkbox"> <i class="fa-solid fa-check check-icon"></i> </span> ' +
+            '<span class="item-text">' +
+            preValue[j].label +
+            "</span></li>";
+        }
+      }
+    }
+    return _innerHtml;
+  }
+
   private Retrieve(
     context: ComponentFramework.Context<IInputs>,
-    primaryEntityName: string,
-    primaryEntityId: string,
-    primaryEntityIdColumn: string,
-    primaryEntityNameColumn: string
+    relatedEntityName: string,
+    relatedEntityIdColumn: string,
+    relatedEntityNameColumn: string,
+    relatedEntitySearchColumn1: string,
+    previousOptions: OptionsType
   ): OptionsType {
     //
     let outArray: OptionsType;
@@ -250,27 +260,43 @@ export class MultiSelectCheckBoxList
     outArray = [];
     context.webAPI
       .retrieveMultipleRecords(
-        primaryEntityName,
+        relatedEntityName,
         "?$select=" +
-          primaryEntityIdColumn +
+          relatedEntityIdColumn +
           "," +
-          primaryEntityNameColumn +
+          relatedEntityNameColumn +
           "&$filter=" +
-          primaryEntityIdColumn +
-          " eq " +
-          primaryEntityId
-      ) //
+          relatedEntitySearchColumn1 +
+          " ne " +
+          "null"
+      ) //  filter is experiemental
       .then(
         function success(results) {
           console.log(results);
           if (results.entities.length > 0) {
             outArray = [];
             for (let i = 0; i < results.entities.length; i++) {
-              outArray.push({
-                label: results.entities[0][primaryEntityNameColumn].toString(),
-                value: results.entities[0][primaryEntityIdColumn].toString(),
-                parentEntityId: primaryEntityId,
-              });
+              let isPrevious: boolean = false;
+              if (previousOptions != null) {
+                for (let j = 0; j < previousOptions.length; j++) {
+                  if (
+                    results.entities[i][relatedEntityIdColumn].toString() ==
+                    previousOptions[j].value
+                  ) {
+                    isPrevious = true;
+                  } else {
+                    isPrevious = false;
+                  }
+                }
+              }
+              if (!isPrevious) {
+                outArray.push({
+                  label:
+                    results.entities[i][relatedEntityNameColumn].toString(),
+                  value: results.entities[i][relatedEntityIdColumn].toString(),
+                  parentEntityId: "",
+                });
+              }
             }
           }
           return outArray;

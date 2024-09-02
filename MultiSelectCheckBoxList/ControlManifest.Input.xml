@@ -19,12 +19,12 @@
     </external-service-usage>
     <!-- property node identifies a specific, configurable piece of data that the control expects from CDS -->
     <!--<property name="sampleProperty" display-name-key="Property_Display_Key" description-key="Property_Desc_Key" of-type="SingleLine.Text" usage="bound" required="true" />-->
-    <property name="multiSelectedValues" display-name-key="Multi Select Lookup Values" description-key="Selected values in comma seperated" of-type="SingleLine.Text" usage="bound" />
-    <property name="primaryEntityName" display-name-key="Primary Entity Logical Name" description-key="Primary entity Name" usage="input" of-type="SingleLine.Text" required="true"/>
-    <property name="primaryEntityId" display-name-key="Primary Entity ID" description-key="Bind the property to ID of primary entity" usage="input" of-type="SingleLine.Text" required="true"/> 
-    <property name="primaryEntityIdColumn" display-name-key="Primary Entity Id Column" description-key="Primary Entity Id Column" usage="input" of-type="SingleLine.Text" required="true" />
-    <property name="primaryEntityNameColumn" display-name-key="Primary Name Column" description-key="Name column should be primaycolumn(name)" usage="input" of-type="SingleLine.Text" required="true" />
-    <property name="fieldPlaceHolder" display-name-key="Field Place Holder" description-key="Field Place Holder" usage="input" of-type="SingleLine.Text" required="true" />
+    <property name="multiSelectJsonValues" display-name-key="Multi Select JSON Values" description-key="Selected values in JSON format" of-type="SingleLine.Text" usage="bound" />
+    <property name="relatedEntityName" display-name-key="Related Entity Logical Name" description-key="Related entity Name" usage="input" of-type="SingleLine.Text" required="true"/>
+    <property name="relatedEntityIdColumn" display-name-key="Related Entity Id Column" description-key="Related Entity Id Column" usage="input" of-type="SingleLine.Text" required="true" />
+    <property name="relatedEntityNameColumn" display-name-key="Related Entity Name Column" description-key="Name column should be primaycolumn(name)" usage="input" of-type="SingleLine.Text" required="true" />
+    <property name="relatedEntitySearchColumn1" display-name-key="related Entity Search Column1" description-key="related Entity Search Column1" usage="input" of-type="SingleLine.Text" required="true" />
+    <property name="OptionsPlaceHolder" display-name-key="Field: Options Place Holder" description-key="Options Place Holder" usage="input" of-type="SingleLine.Text" required="true" />
     <!--
       Property node's of-type attribute can be of-type-group attribute.
       Example:
