@@ -1,0 +1,22 @@
+### Solution Deployment####
+1.  This is you PCF folder path
+-  ..\MultiSelectCheckBoxList> npm run build
+ 
+2.Create a new sub-folder for storing the Solution [What I suggest] inside your PCF folder path and after successfully running 'npm run build'. Use: cd <your sub folder name>
+- cd MultiSelectCheckBoxListSolution
+ 
+3. (Confirm you are under sub-folder now) and run below command 'using your publisher name***
+
+- ..\MultiSelectCheckBoxListSolution>pac solution init --publisher-name Regulus --publisher-prefix wmuk
+ 
+4. Under the same folder ***
+- ..\MultiSelectCheckBoxListSolution>pac solution add-reference --path "Full Path... \MultiSelectCheckBoxList"
+
+- The --path will be exact pcf project path in order to add ref. [please confirm your project's path before running this, even though we are in same terminal path, the PCF Project path should be enclosed ".."]
+ 
+5. Under the same folder ***
+- ..\MultiSelectCheckBoxListSolution> msbuild /t:restore
+
+6. Go to ..\MultiSelectCheckBoxListSolution folder and get the solution zip
+
+7. For subsequent builds delete the content of ..\MultiSelectCheckBoxListSolution folder and repeat the steps.
