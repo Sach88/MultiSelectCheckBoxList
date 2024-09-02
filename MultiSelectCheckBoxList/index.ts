@@ -33,12 +33,12 @@ export class MultiSelectCheckBoxList
    * @param state A piece of data that persists in one session for a single user. Can be set at any point in a controls life cycle by calling 'setControlState' in the Mode interface.
    * @param container If a control is marked control-type='standard', it will receive an empty div element within which it can render its content.
    */
-  public init(
+  public async init(
     context: ComponentFramework.Context<IInputs>,
     notifyOutputChanged: () => void,
     state: ComponentFramework.Dictionary,
     container: HTMLDivElement
-  ): void {
+  ): Promise<void> {
     this._notifyOutputChanged = notifyOutputChanged;
     // Add control initialization code
     this._context = context;
@@ -57,7 +57,7 @@ export class MultiSelectCheckBoxList
     }
     //Fetch available options.
     let availableOptions: OptionsType = null;
-    availableOptions = this.Retrieve(
+    availableOptions = await this.Retrieve(
       context,
       context.parameters.relatedEntityName.raw!,
       context.parameters.relatedEntityIdColumn.raw!,
@@ -246,19 +246,19 @@ export class MultiSelectCheckBoxList
     return _innerHtml;
   }
 
-  private Retrieve(
+  private async Retrieve(
     context: ComponentFramework.Context<IInputs>,
     relatedEntityName: string,
     relatedEntityIdColumn: string,
     relatedEntityNameColumn: string,
     relatedEntitySearchColumn1: string,
     previousOptions: OptionsType
-  ): OptionsType {
+  ): Promise<OptionsType> {
     //
     let outArray: OptionsType;
     outArray = null; //To handle : 'outArray' is never reassigned. Use 'const' instead
     outArray = [];
-    context.webAPI
+    await context.webAPI
       .retrieveMultipleRecords(
         relatedEntityName,
         "?$select=" +
@@ -297,22 +297,13 @@ export class MultiSelectCheckBoxList
                   parentEntityId: "",
                 });
               }
-            }
+            }            
           }
-          return outArray;
         },
         function (error) {
-          outArray = [];
-          console.log(error.message);
-          /*
-          outArray.push({
-            value: "1234",
-            label: "Option 2",
-            parentEntityId: "",
-          });
-          */
+          console.log(error.message);         
         }
       );
-    return outArray;
+      return outArray;
   }
 }
