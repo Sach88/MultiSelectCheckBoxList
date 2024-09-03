@@ -85,10 +85,10 @@ export class MultiSelectCheckBoxList
     */
 
     //Generate HTML
-    this._container.innerHTML =
-      '<div class="select-btn"> <span class="btn-text">' +
+    this._container.innerHTML =    
+      '<div class="select-btn"> <span style="font-size:14px" class="btn-text">' +
       (context.parameters.OptionsPlaceHolder.raw! == ""
-        ? "Select Options"
+        ? "Select Option(s)"
         : context.parameters.OptionsPlaceHolder.raw!) +
       '</span> <span class="arrow-dwn"><i class="fa-solid fa-chevron-down"></i>  </span>   </div>' +
       _innerHtml;
@@ -113,7 +113,7 @@ export class MultiSelectCheckBoxList
 
         if (btnText != null && btnText != undefined) {
           if (checked && checked.length > 0) {
-            btnText.innerHTML = `${checked.length} Selected`; //innerText
+            btnText.innerHTML = `${checked.length} Roles Selected`; //innerText
 
             let optionArray: OptionsType;
             optionArray = null; //To handle : 'optionArray' is never reassigned. Use 'const' instead
@@ -269,7 +269,7 @@ export class MultiSelectCheckBoxList
           relatedEntitySearchColumn1 +
           " ne " +
           "null"
-      ) //  filter is experiemental
+      )
       .then(
         function success(results) {
           console.log(results);
@@ -289,7 +289,7 @@ export class MultiSelectCheckBoxList
                   }
                 }
               }
-              if (!isPrevious) {
+              if (isPrevious != true) {
                 outArray.push({
                   label:
                     results.entities[i][relatedEntityNameColumn].toString(),
@@ -297,13 +297,13 @@ export class MultiSelectCheckBoxList
                   parentEntityId: "",
                 });
               }
-            }            
+            }
           }
         },
         function (error) {
-          console.log(error.message);         
+          console.log(error.message);
         }
       );
-      return outArray;
+    return outArray;
   }
 }
