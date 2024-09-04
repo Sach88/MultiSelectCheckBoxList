@@ -1,9 +1,7 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 
 //Custom Type
-type OptionsType =
-  | { label: string; value: string; parentEntityId: string }[]
-  | null;
+type OptionsType = { label: string; value: string }[] | null;
 
 export class MultiSelectCheckBoxList
   implements ComponentFramework.StandardControl<IInputs, IOutputs>
@@ -85,7 +83,7 @@ export class MultiSelectCheckBoxList
     */
 
     //Generate HTML
-    this._container.innerHTML =    
+    this._container.innerHTML =
       '<div class="select-btn"> <span style="font-size:14px" class="btn-text">' +
       (context.parameters.OptionsPlaceHolder.raw! == ""
         ? "Select Option(s)"
@@ -138,9 +136,6 @@ export class MultiSelectCheckBoxList
                 optionArray.push({
                   label: childNodesArr[i].getAttribute("data-label"),
                   value: childNodesArr[i].getAttribute("data-value"),
-                  parentEntityId: childNodesArr[i].getAttribute(
-                    "data-parentEntityId"
-                  ),
                 });
               }
             }
@@ -195,20 +190,14 @@ export class MultiSelectCheckBoxList
     let _innerHtml: string = "";
     if (preValue != null) {
       for (let j = 0; j < preValue.length; j++) {
-        if (
-          preValue[j].label != null &&
-          preValue[j].value != null &&
-          preValue[j].parentEntityId != null
-        ) {
+        if (preValue[j].label != null && preValue[j].value != null) {
           _innerHtml =
             _innerHtml +
             '<li class="item checked" data-value="' +
             preValue[j].value +
             '" data-label="' +
             preValue[j].label +
-            '" data-parentEntityId="' +
-            preValue[j].parentEntityId +
-            '">' +
+            '" data-parentEntityId="">' +
             '<span class="checkbox"> <i class="fa-solid fa-check check-icon"></i> </span> ' +
             '<span class="item-text">' +
             preValue[j].label +
@@ -222,20 +211,14 @@ export class MultiSelectCheckBoxList
     let _innerHtml: string = "";
     if (preValue != null) {
       for (let j = 0; j < preValue.length; j++) {
-        if (
-          preValue[j].label != null &&
-          preValue[j].value != null &&
-          preValue[j].parentEntityId != null
-        ) {
+        if (preValue[j].label != null && preValue[j].value != null) {
           _innerHtml =
             _innerHtml +
             '<li class="item" data-value="' +
             preValue[j].value +
             '" data-label="' +
             preValue[j].label +
-            '" data-parentEntityId="' +
-            preValue[j].parentEntityId +
-            '">' +
+            '" data-parentEntityId="">' +
             '<span class="checkbox"> <i class="fa-solid fa-check check-icon"></i> </span> ' +
             '<span class="item-text">' +
             preValue[j].label +
@@ -294,7 +277,6 @@ export class MultiSelectCheckBoxList
                   label:
                     results.entities[i][relatedEntityNameColumn].toString(),
                   value: results.entities[i][relatedEntityIdColumn].toString(),
-                  parentEntityId: "",
                 });
               }
             }
