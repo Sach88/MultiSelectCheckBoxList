@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <manifest>
-  <control namespace="MultiSelectCheckBoxList" constructor="MultiSelectCheckBoxList" version="1.0.2" display-name-key="MultiSelectCheckBoxList" description-key="MultiSelectCheckBoxList description" control-type="standard" api-version="1.3.15">
+  <control namespace="MultiSelectCheckBoxList" constructor="MultiSelectCheckBoxList" version="1.0.4" display-name-key="MultiSelectCheckBoxList" description-key="MultiSelectCheckBoxList description" control-type="standard" api-version="1.3.15">
     <external-service-usage enabled="false"/>
     <property name="multiSelectJsonValues" display-name-key="Multi Select JSON Values" description-key="Selected values in JSON format" of-type="Multiple" usage="bound"/>
     <property name="relatedEntityName" display-name-key="Related Entity Logical Name" description-key="Related entity Name" usage="input" of-type="SingleLine.Text" required="true"/>

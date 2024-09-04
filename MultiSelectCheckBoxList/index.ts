@@ -250,9 +250,11 @@ export class MultiSelectCheckBoxList
           relatedEntityNameColumn +
           "&$filter=" +
           relatedEntitySearchColumn1 +
-          " ne " +
-          "null"
-      )
+          " ne null" +
+          "&$orderby=" +
+          relatedEntityNameColumn +
+          " asc"
+      ) //
       .then(
         function success(results) {
           console.log(results);
